@@ -1,0 +1,15 @@
+.classpath
+.project
+target
+
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
