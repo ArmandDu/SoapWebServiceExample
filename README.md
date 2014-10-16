@@ -1,4 +1,6 @@
-SoapWebServiceExample
+jaxwsSoapWebServiceExample
 =====================
 
-Simple WebService 
+Simple example of jaxws webservice.
+
+
