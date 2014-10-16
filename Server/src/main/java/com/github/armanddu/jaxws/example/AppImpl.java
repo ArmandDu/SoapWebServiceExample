@@ -1,8 +1,8 @@
-package com.ws.soap.test;
+package com.github.armanddu.jaxws.example;
 
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "com.ws.soap.test.App")
+@WebService(endpointInterface = "com.github.armanddu.jaxws.example.App")
 public class AppImpl implements App {
 
 	private static final String	message	= "Hello {name} !";

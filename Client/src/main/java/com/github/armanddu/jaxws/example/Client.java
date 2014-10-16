@@ -1,10 +1,12 @@
-package com.ws.soap.test;
+package com.github.armanddu.jaxws.example;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+
+import com.github.armanddu.jaxws.example.App;
 
 /**
  * Hello world!
@@ -22,7 +24,7 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		QName qname = new QName("http://test.soap.ws.com/", "AppImplService");
+		QName qname = new QName("http://com.github.armanddu.jaxws.example/", "AppImplService");
 		AppImplService service = new AppImplService(newEndpoint, qname);
 
 		

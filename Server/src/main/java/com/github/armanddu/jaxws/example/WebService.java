@@ -1,4 +1,4 @@
-package com.ws.soap.test;
+package com.github.armanddu.jaxws.example;
 
 import javax.xml.ws.Endpoint;
 

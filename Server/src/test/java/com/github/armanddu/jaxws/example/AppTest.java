@@ -1,4 +1,7 @@
-package com.ws.soap.test;
+package com.github.armanddu.jaxws.example;
+
+import com.github.armanddu.jaxws.example.App;
+import com.github.armanddu.jaxws.example.AppImpl;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
