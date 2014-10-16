@@ -1,5 +1,9 @@
 package com.ws.soap.test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 
 import junit.framework.Test;
@@ -22,7 +26,17 @@ public class ClientTest extends TestCase {
 	public ClientTest(String testName) {
 		super(testName);
 
-		AppImplService service = new AppImplService();
+		URL newEndpoint = null;
+		try {
+			newEndpoint = new URL("http://localhost:4242/WS/App");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.err.println("You should probably run the Server before calling the client");
+		}
+		QName qname = new QName("http://test.soap.ws.com/", "AppImplService");
+		AppImplService service = new AppImplService(newEndpoint, qname);
+
 		app = service.getAppImplPort();
 
 	}
