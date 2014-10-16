@@ -2,19 +2,27 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>Client</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<parent>
+		<groupId>com.github.armanddu.jaxws.example</groupId>
+		<artifactId>jaxws-example</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 
-	<packaging>jar</packaging>
+	<artifactId>jaxws-client</artifactId>
 
-	<name>Client Example</name>
-	<url>http://maven.apache.org</url>
+	<properties>
+		<localWsdlDir>${basedir}/../Server/target/generated-sources/wsdl/</localWsdlDir>
+	</properties>
 
 	<dependencies>
 		<dependency>
+			<groupId>com.github.armanddu.jaxws.example</groupId>
+			<artifactId>jaxws-server</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -22,35 +30,23 @@
 	<build>
 		<plugins>
 			<plugin>
-				<!-- org.jvnet.jax-ws-commons fail in parsing wsdl.. use deprecated org.codehaus.mojo 
-					instead Note : WebserviceApp's wsgen's groupId is org.jvnet.jax-ws-commons 
-					V2.3 -->
-				<!-- <groupId>org.jvnet.jax-ws-commons</groupId> <artifactId>jaxws-maven-plugin</artifactId> 
-					<version>2.3</version> -->
-				<groupId>org.codehaus.mojo</groupId>
+				<groupId>org.jvnet.jax-ws-commons</groupId>
 				<artifactId>jaxws-maven-plugin</artifactId>
-				<version>1.7</version>
-
-				<configuration>
-					<wsdlDirectory>${localWsdlDir}</wsdlDirectory>
-					<verbose>true</verbose>
-				</configuration>
-
 				<executions>
 					<execution>
 						<goals>
 							<goal>wsimport</goal>
 						</goals>
-						<inherited>false</inherited>
 					</execution>
 				</executions>
+				<configuration>
+					<wsdlDirectory>${localWsdlDir}</wsdlDirectory>
+					<vmArgs>
+						<!-- FIXME: Some problems with JDK8 (http://stackoverflow.com/questions/23011547/webservice-client-generation-error-with-jdk8) -->
+						<vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+					</vmArgs>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
-	<parent>
-		<groupId>com.ws.soap.test</groupId>
-		<artifactId>SoapWebServiceExample</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
 </project>
