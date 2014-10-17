@@ -22,7 +22,7 @@ public class CalculatorTest extends TestCase {
 	private static final String	PACKAGE_URL		= "http://example.jaxws.armanddu.github.com/";
 	private static final String	ENDPOINT_URL	= "http://localhost:4242/WS/Calculator";
 
-	Calculator							calculator;
+	Calculator					calculator;
 	Endpoint					endPoint;
 
 	/**
