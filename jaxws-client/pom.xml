@@ -11,7 +11,7 @@
 	<artifactId>jaxws-client</artifactId>
 
 	<properties>
-		<localWsdlDir>${basedir}/../Server/target/generated-sources/wsdl/</localWsdlDir>
+		<localWsdlDir>${basedir}/../jaxws-server/target/generated-sources/wsdl/</localWsdlDir>
 	</properties>
 
 	<dependencies>
