@@ -21,7 +21,7 @@ public class ClientTest extends TestCase {
 	private static final String	PACKAGE_URL		= "http://example.jaxws.armanddu.github.com/";
 	private static final String	ENDPOINT_URL	= "http://localhost:4242/WS/Calculator";
 
-	Calculator							calculator;
+	Calculator					calculator;
 	Endpoint					endPoint;
 
 	/**
@@ -47,12 +47,13 @@ public class ClientTest extends TestCase {
 		endPoint = Endpoint.publish(ENDPOINT_URL, new CalculatorImpl());
 		assertTrue((endPoint.isPublished()));
 
-		URL wsdlLocation = new URL(ENDPOINT_URL + "?wsdl");
-		QName servineQName = new QName(PACKAGE_URL, "CalculatorImplService");
-		QName portQName = new QName(PACKAGE_URL, "CalculatorImplPort");
+		URL newEndpoint = new URL(ENDPOINT_URL);
 
-		Service service = Service.create(wsdlLocation, servineQName);
-		calculator = service.getPort(portQName, Calculator.class);
+		QName qname = new QName(PACKAGE_URL, "CalculatorImplService");
+		CalculatorImplService service = new CalculatorImplService(newEndpoint,
+				qname);
+		calculator = service.getCalculatorImplPort();
+		assertNotNull(calculator);
 	}
 
 	public void tearDown() {

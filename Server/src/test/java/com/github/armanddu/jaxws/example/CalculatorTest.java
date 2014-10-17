@@ -45,15 +45,27 @@ public class CalculatorTest extends TestCase {
 
 	public void setUp() throws MalformedURLException {
 
+		/*
+		 * endPoint = Endpoint.publish(ENDPOINT_URL, new CalculatorImpl());
+		 * assertTrue((endPoint.isPublished()));
+		 * 
+		 * URL wsdlLocation = new URL(ENDPOINT_URL + "?wsdl"); QName
+		 * servineQName = new QName(PACKAGE_URL, "CalculatorImplService"); QName
+		 * portQName = new QName(PACKAGE_URL, "CalculatorImplPort");
+		 * 
+		 * Service service = Service.create(wsdlLocation, servineQName);
+		 * calculator = service.getPort(portQName, Calculator.class);
+		 */
 		endPoint = Endpoint.publish(ENDPOINT_URL, new CalculatorImpl());
 		assertTrue((endPoint.isPublished()));
 
-		URL wsdlLocation = new URL(ENDPOINT_URL + "?wsdl");
-		QName servineQName = new QName(PACKAGE_URL, "CalculatorImplService");
-		QName portQName = new QName(PACKAGE_URL, "CalculatorImplPort");
+		URL newEndpoint = new URL(ENDPOINT_URL);
 
-		Service service = Service.create(wsdlLocation, servineQName);
-		calculator = service.getPort(portQName, Calculator.class);
+		QName qname = new QName(PACKAGE_URL, "CalculatorImplService");
+		CalculatorImplService service = new CalculatorImplService(newEndpoint,
+				qname);
+		calculator = service.getCalculatorImplPort();
+		assertNotNull(calculator);
 	}
 
 	public void tearDown() {
