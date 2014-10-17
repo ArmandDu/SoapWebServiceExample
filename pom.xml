@@ -50,7 +50,14 @@
 						<verbose>true</verbose>
 					</configuration>
 				</plugin>
-
+				<plugin>
+					<groupId>org.eluder.coveralls</groupId>
+					<artifactId>coveralls-maven-plugin</artifactId>
+					<version>3.0.1</version>
+					<configuration>
+						<repoToken>cH3XN8rr8RUZOBtbBEhtbcdKvFb8rsUMW</repoToken>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
