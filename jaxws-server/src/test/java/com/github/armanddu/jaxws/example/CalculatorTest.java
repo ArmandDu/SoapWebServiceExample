@@ -5,15 +5,14 @@ import java.net.URL;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Endpoint;
-import javax.xml.ws.Service;
-
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.github.armanddu.jaxws.example.Calculator;
 import com.github.armanddu.jaxws.example.CalculatorImpl;
+import com.github.armanddu.jaxws.example.generated.Calculator;
+import com.github.armanddu.jaxws.example.generated.CalculatorImplService;
 
 /**
  * Unit test for simple App.
@@ -39,17 +38,6 @@ public class CalculatorTest {
 	@BeforeTest
 	public void setUp() throws MalformedURLException {
 
-		/*
-		 * endPoint = Endpoint.publish(ENDPOINT_URL, new CalculatorImpl());
-		 * assertTrue((endPoint.isPublished()));
-		 * 
-		 * URL wsdlLocation = new URL(ENDPOINT_URL + "?wsdl"); QName
-		 * servineQName = new QName(PACKAGE_URL, "CalculatorImplService"); QName
-		 * portQName = new QName(PACKAGE_URL, "CalculatorImplPort");
-		 * 
-		 * Service service = Service.create(wsdlLocation, servineQName);
-		 * calculator = service.getPort(portQName, Calculator.class);
-		 */
 		endPoint = Endpoint.publish(ENDPOINT_URL, new CalculatorImpl());
 		Assert.assertTrue((endPoint.isPublished()));
 
@@ -62,7 +50,7 @@ public class CalculatorTest {
 		Assert.assertNotNull(calculator);
 	}
 
-	@AfterTest
+	@AfterTest(alwaysRun = true)
 	public void tearDown() {
 		endPoint.stop();
 		Assert.assertFalse(endPoint.isPublished());

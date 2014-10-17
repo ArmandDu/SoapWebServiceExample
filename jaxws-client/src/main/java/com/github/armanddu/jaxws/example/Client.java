@@ -4,10 +4,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
 
-import com.github.armanddu.jaxws.example.Calculator;
-
+import com.github.armanddu.jaxws.example.ws.CalculatorImplService;
+import com.github.armanddu.jaxws.example.ws.Calculator;
 /**
  * Hello world!
  *
@@ -24,7 +23,7 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		QName qname = new QName("http://com.github.armanddu.jaxws.example/",
+		QName qname = new QName("http://com.github.armanddu.jaxws.example.service/",
 				"CalculatorImplService");
 		CalculatorImplService service = new CalculatorImplService(newEndpoint, qname);
 

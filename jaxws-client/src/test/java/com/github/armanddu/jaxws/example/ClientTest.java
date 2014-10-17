@@ -5,14 +5,13 @@ import java.net.URL;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Endpoint;
-import javax.xml.ws.Service;
-
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.github.armanddu.jaxws.example.Calculator;
+import com.github.armanddu.jaxws.example.ws.CalculatorImplService;
+import com.github.armanddu.jaxws.example.ws.Calculator;
 
 
 /**

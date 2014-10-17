@@ -43,6 +43,7 @@
 					<sei>com.github.armanddu.jaxws.example.CalculatorImpl</sei>
 					<genWsdl>true</genWsdl>
 					<wsdlDirectory>${localWsdlDir}</wsdlDirectory>
+					<packageName>${project.groupId}.generated</packageName>
 					<vmArgs>
 						<!-- FIXME: Some problems with JDK8 (http://stackoverflow.com/questions/23011547/webservice-client-generation-error-with-jdk8) -->
 						<vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
