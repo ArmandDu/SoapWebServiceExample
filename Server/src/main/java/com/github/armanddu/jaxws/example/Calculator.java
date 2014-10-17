@@ -9,9 +9,7 @@ import javax.jws.WebService;
  */
 
 @WebService
-public interface App {
-	@WebMethod
-	String grettings(String name);
+public interface Calculator {
 
 	@WebMethod
 	double doAddition(double a, double b);

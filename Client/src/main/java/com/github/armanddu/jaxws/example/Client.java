@@ -6,7 +6,7 @@ import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 
-import com.github.armanddu.jaxws.example.App;
+import com.github.armanddu.jaxws.example.Calculator;
 
 /**
  * Hello world!
@@ -19,24 +19,22 @@ public class Client {
 		// first one is to Use the WSDL to get the endpoint URL
 		URL newEndpoint = null;
 		try {
-			newEndpoint = new URL("http://localhost:4242/WS/App");
+			newEndpoint = new URL("http://localhost:4242/WS/Calculator");
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		QName qname = new QName("http://com.github.armanddu.jaxws.example/", "AppImplService");
-		AppImplService service = new AppImplService(newEndpoint, qname);
+		QName qname = new QName("http://com.github.armanddu.jaxws.example/",
+				"CalculatorImplService");
+		CalculatorImplService service = new CalculatorImplService(newEndpoint, qname);
 
-		
-		//The second way is to Use the Binding Provider to set the endpoint URL
+		// The second way is to Use the Binding Provider to set the endpoint URL
 		/*
 		 * BindingProvider bp = (BindingProvider) app; String endpointURL = ;
 		 * bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
 		 * endpointURL);
 		 */
 
-		App app = service.getAppImplPort();
-
-		System.out.println(app.grettings("John Doe"));
+		Calculator calculator = service.getCalculatorImplPort();
 	}
 }

@@ -4,9 +4,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Endpoint;
+import javax.xml.ws.Service;
 
-import com.github.armanddu.jaxws.example.App;
+import com.github.armanddu.jaxws.example.Calculator;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -16,30 +17,21 @@ import junit.framework.TestSuite;
  * Unit test for simple App.
  */
 public class ClientTest extends TestCase {
+
+	private static final String	PACKAGE_URL		= "http://example.jaxws.armanddu.github.com/";
+	private static final String	ENDPOINT_URL	= "http://localhost:4242/WS/Calculator";
+
+	Calculator							calculator;
+	Endpoint					endPoint;
+
 	/**
 	 * Create the test case
 	 *
 	 * @param testName
 	 *            name of the test case
 	 */
-
-	App	app;
-
 	public ClientTest(String testName) {
 		super(testName);
-
-		URL newEndpoint = null;
-		try {
-			newEndpoint = new URL("http://localhost:4242/WS/App");
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.err.println("You should probably run the Server before calling the client");
-		}
-		QName qname = new QName("http://com.github.armanddu.jaxws.example/", "AppImplService");
-		AppImplService service = new AppImplService(newEndpoint, qname);
-
-		app = service.getAppImplPort();
 
 	}
 
@@ -50,12 +42,27 @@ public class ClientTest extends TestCase {
 		return new TestSuite(ClientTest.class);
 	}
 
+	public void setUp() throws MalformedURLException {
+
+		endPoint = Endpoint.publish(ENDPOINT_URL, new CalculatorImpl());
+		assertTrue((endPoint.isPublished()));
+
+		URL wsdlLocation = new URL(ENDPOINT_URL + "?wsdl");
+		QName servineQName = new QName(PACKAGE_URL, "CalculatorImplService");
+		QName portQName = new QName(PACKAGE_URL, "CalculatorImplPort");
+
+		Service service = Service.create(wsdlLocation, servineQName);
+		calculator = service.getPort(portQName, Calculator.class);
+	}
+
+	public void tearDown() {
+		endPoint.stop();
+		assertFalse(endPoint.isPublished());
+	}
+
 	/**
 	 * Rigourous Test :-)
 	 */
-	public void testClient() {
-		assertEquals("Hello John Doe !", app.grettings("John Doe"));
-	}
 
 	public void testCalculs() {
 		double a;
@@ -63,11 +70,11 @@ public class ClientTest extends TestCase {
 
 		for (a = -5; a < 5; a += 0.3666) {
 			for (b = -5; b < 5; b += 0.3666) {
-				assertEquals(a + b, app.doAddition(a, b));
-				assertEquals(a - b, app.doSubstraction(a, b));
-				assertEquals(a * b, app.doMultiplication(a, b));
+				assertEquals(a + b, calculator.doAddition(a, b));
+				assertEquals(a - b, calculator.doSubstraction(a, b));
+				assertEquals(a * b, calculator.doMultiplication(a, b));
 				if (b != 0.0) {
-					assertEquals(a / b, app.doDivision(a, b));
+					assertEquals(a / b, calculator.doDivision(a, b));
 				}
 			}
 		}
