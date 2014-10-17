@@ -9,9 +9,9 @@
 	</parent>
 
 	<artifactId>jaxws-server</artifactId>
-	
-		<properties>
-		<localWsdlDir>${basedir}/target/generated-sources/wsdl/</localWsdlDir>
+
+	<properties>
+		<localWsdlDir>${basedir}/../Server/target/generated-sources/wsdl/</localWsdlDir>
 	</properties>
 
 	<dependencies>
@@ -20,8 +20,8 @@
 			<artifactId>jaxws-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -35,25 +35,13 @@
 					<execution>
 						<goals>
 							<goal>wsgen</goal>
+							<goal>wsimport-test</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
 					<sei>com.github.armanddu.jaxws.example.CalculatorImpl</sei>
 					<genWsdl>true</genWsdl>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.jvnet.jax-ws-commons</groupId>
-				<artifactId>jaxws-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>wsimport-test</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
 					<wsdlDirectory>${localWsdlDir}</wsdlDirectory>
 					<vmArgs>
 						<!-- FIXME: Some problems with JDK8 (http://stackoverflow.com/questions/23011547/webservice-client-generation-error-with-jdk8) -->

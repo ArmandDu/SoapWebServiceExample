@@ -7,17 +7,18 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.Service;
 
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
 import com.github.armanddu.jaxws.example.Calculator;
 import com.github.armanddu.jaxws.example.CalculatorImpl;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Unit test for simple App.
  */
-public class CalculatorTest extends TestCase {
+public class CalculatorTest {
 
 	private static final String	PACKAGE_URL		= "http://example.jaxws.armanddu.github.com/";
 	private static final String	ENDPOINT_URL	= "http://localhost:4242/WS/Calculator";
@@ -33,16 +34,9 @@ public class CalculatorTest extends TestCase {
 	 * @throws MalformedURLException
 	 */
 	public CalculatorTest(String testName) {
-		super(testName);
 	}
 
-	/**
-	 * @return the suite of tests being tested
-	 */
-	public static Test suite() {
-		return new TestSuite(CalculatorTest.class);
-	}
-
+	@BeforeTest
 	public void setUp() throws MalformedURLException {
 
 		/*
@@ -57,7 +51,7 @@ public class CalculatorTest extends TestCase {
 		 * calculator = service.getPort(portQName, Calculator.class);
 		 */
 		endPoint = Endpoint.publish(ENDPOINT_URL, new CalculatorImpl());
-		assertTrue((endPoint.isPublished()));
+		Assert.assertTrue((endPoint.isPublished()));
 
 		URL newEndpoint = new URL(ENDPOINT_URL);
 
@@ -65,27 +59,29 @@ public class CalculatorTest extends TestCase {
 		CalculatorImplService service = new CalculatorImplService(newEndpoint,
 				qname);
 		calculator = service.getCalculatorImplPort();
-		assertNotNull(calculator);
+		Assert.assertNotNull(calculator);
 	}
 
+	@AfterTest
 	public void tearDown() {
 		endPoint.stop();
-		assertFalse(endPoint.isPublished());
+		Assert.assertFalse(endPoint.isPublished());
 	}
 
 	/**
 	 * Rigourous Test :-)
 	 */
 
+	@Test
 	public void testCalculs() {
 
 		for (double a = -5; a < 5; a += 0.3666) {
 			for (double b = -5; b < 5; b += 0.3666) {
-				assertEquals(a + b, calculator.doAddition(a, b));
-				assertEquals(a - b, calculator.doSubstraction(a, b));
-				assertEquals(a * b, calculator.doMultiplication(a, b));
+				Assert.assertEquals(a + b, calculator.doAddition(a, b));
+				Assert.assertEquals(a - b, calculator.doSubstraction(a, b));
+				Assert.assertEquals(a * b, calculator.doMultiplication(a, b));
 				if (b != 0.0) {
-					assertEquals(a / b, calculator.doDivision(a, b));
+					Assert.assertEquals(a / b, calculator.doDivision(a, b));
 				}
 			}
 		}

@@ -1,3 +1,5 @@
+
+#eclipse skip
 .classpath
 .project
 target
@@ -14,5 +16,19 @@ local.properties
 .settings/
 .loadpath
 
+#intellij skip
 *.iml
 .idea/
+
+#testNG skip
+TESTNG-*
+ivy*
+eclipse-build
+javadocs
+test-output
+test-output-tests
+z_build
+maven-testng-plugin-1.2.jar
+src/test/java/test/ignore
+testng.iml
+.ant-targets*
